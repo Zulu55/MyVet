@@ -1,4 +1,4 @@
-﻿@model MyVet.Web.Models.PetViewModel
+﻿@model MyVet.Web.Models.HistoryViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -6,19 +6,19 @@
 
 <h2>Create</h2>
 
-<h4>Pet</h4>
+<h4>History</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="AddPet" enctype="multipart/form-data">
+        <form asp-action="AddHistory">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="OwnerId" />
+            <input type="hidden" asp-for="PetId" />
 
-            <partial name="_Pet" />
+            <partial name="_History" />
 
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
-                <a asp-action="Details" asp-route-id="@Model.OwnerId" class="btn btn-success">Back to Owner</a>
+                <a asp-action="DetailsPet" asp-route-id="@Model.PetId" class="btn btn-success">Back to Pet</a>
             </div>
         </form>
     </div>

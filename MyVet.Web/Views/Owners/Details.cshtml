@@ -95,38 +95,59 @@ else
         <tbody>
             @foreach (var item in Model.Pets)
             {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @if (!string.IsNullOrEmpty(item.ImageUrl))
-                    {
-                        <img src="@Url.Content(item.ImageUrl)" alt="Image" style="width:200px;height:200px;max-width: 100%; height: auto;" />
-                    }
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Race)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PetType.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.BornLocal)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Histories.Count)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Remarks)
-                </td>
-                <td>
-                    <a asp-action="EditPet" asp-route-id="@item.Id" class="btn btn-warning">Edit</a>
-                    <a asp-action="DetailsPet" asp-route-id="@item.Id" class="btn btn-info">Details</a>
-                    <a asp-action="DeletePet" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
-                </td>
-            </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(item.ImageUrl))
+                        {
+                            <img src="@Url.Content(item.ImageUrl)" alt="Image" style="width:200px;height:200px;max-width: 100%; height: auto;" />
+                        }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Race)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PetType.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BornLocal)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Histories.Count)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Remarks)
+                    </td>
+                    <td>
+                        <a asp-action="EditPet" asp-route-id="@item.Id" class="btn btn-warning">Edit</a>
+                        <a asp-action="DetailsPet" asp-route-id="@item.Id" class="btn btn-info">Details</a>
+                        <button data-id="@item.Id" class="btn btn-danger deleteItem" data-toggle="modal" data-target="#deleteDialog">Delete</button>
+                    </td>
+                </tr>
             }
         </tbody>
     </table>
+}
+
+<partial name="_DeleteDialog" />
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // Delete item
+            var item_to_delete;
+
+            $('.deleteItem').click((e) => {
+                item_to_delete = e.currentTarget.dataset.id;
+            });
+
+            $("#btnYesDelete").click(function () {
+                window.location.href = '/Owners/DeletePet/' + item_to_delete;
+            });
+        });
+    </script>
 }
