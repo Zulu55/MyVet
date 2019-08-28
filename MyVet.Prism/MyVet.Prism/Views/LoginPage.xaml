@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="MyVet.Prism.Views.LoginPage"
+             Title="{Binding Title}">
+
+    <StackLayout
+        Padding="10">
+        <Label
+            Text="Email"/>
+        <Entry
+            Keyboard="Email"
+            Placeholder="Enter your email..."
+            Text="{Binding Email}"/>
+        <Label
+            Text="Password"/>
+        <Entry
+            IsPassword="True"
+            Placeholder="Enter your password..."
+            Text="{Binding Password}"/>
+        <ActivityIndicator
+            VerticalOptions="CenterAndExpand"
+            IsRunning="{Binding IsRunning}"/>
+        <Button
+            IsEnabled="{Binding IsEnabled}"
+            Command="{Binding LoginCommand}"
+            Text="Login"/>
+    </StackLayout>
+    
+</ContentPage>
