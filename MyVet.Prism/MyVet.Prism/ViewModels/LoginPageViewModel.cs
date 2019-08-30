@@ -26,6 +26,10 @@ namespace MyVet.Prism.ViewModels
             _apiService = apiService;
             Title = "Login";
             IsEnabled = true;
+
+            //TODO: Delete this lines
+            Email = "jzuluaga55@hotmail.com";
+            Password = "123456";
         }
 
         public DelegateCommand LoginCommand => _loginCommand ?? (_loginCommand = new DelegateCommand(Login));
