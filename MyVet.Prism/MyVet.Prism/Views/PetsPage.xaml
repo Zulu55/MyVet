@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="MyVet.Prism.Views.PetsPage"
              BackgroundColor="Silver"
@@ -30,9 +31,15 @@
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
-                                <Image
+                                <ffimageloading:CachedImage
                                     Grid.Column="0"
                                     Source="{Binding ImageUrl}"
+                                    LoadingPlaceholder= "LoaderImage"
+                                    ErrorPlaceholder= "ErrorImage"
+                                    CacheDuration= "50"
+                                    RetryCount= "3"
+                                    RetryDelay= "600"
+                                    DownsampleToViewSize = "true"
                                     WidthRequest="100"/>
                                 <Grid
                                     Grid.Column="1">
