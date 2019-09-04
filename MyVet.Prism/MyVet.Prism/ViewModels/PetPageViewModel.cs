@@ -1,4 +1,6 @@
-﻿using MyVet.Common.Models;
+﻿using MyVet.Common.Helpers;
+using MyVet.Common.Models;
+using Newtonsoft.Json;
 using Prism.Navigation;
 
 namespace MyVet.Prism.ViewModels
@@ -10,6 +12,7 @@ namespace MyVet.Prism.ViewModels
         public PetPageViewModel(
             INavigationService navigationService) : base(navigationService)
         {
+            Title = "Details";
         }
 
         public PetResponse Pet
@@ -21,13 +24,7 @@ namespace MyVet.Prism.ViewModels
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
-
-            if (parameters.ContainsKey("pet"))
-            {
-                Pet = parameters.GetValue<PetResponse>("pet");
-                Title = Pet.Name;
-            }
+            Pet = JsonConvert.DeserializeObject<PetResponse>(Settings.Pet);
         }
-
     }
 }
