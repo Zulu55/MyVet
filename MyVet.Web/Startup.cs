@@ -31,6 +31,12 @@ namespace MyVet.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/Account/NotAuthorized";
+                options.AccessDeniedPath = "/Account/NotAuthorized";
+            });
+
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -40,6 +46,8 @@ namespace MyVet.Web
 
             services.AddIdentity<User, IdentityRole>(cfg =>
             {
+                cfg.Tokens.AuthenticatorTokenProvider = TokenOptions.DefaultAuthenticatorProvider;
+                cfg.SignIn.RequireConfirmedEmail = true;
                 cfg.User.RequireUniqueEmail = true;
                 cfg.Password.RequireDigit = false;
                 cfg.Password.RequiredUniqueChars = 0;
@@ -47,8 +55,8 @@ namespace MyVet.Web
                 cfg.Password.RequireNonAlphanumeric = false;
                 cfg.Password.RequireUppercase = false;
             })
+                .AddDefaultTokenProviders()
                 .AddEntityFrameworkStores<DataContext>();
-
 
             services.AddDbContext<DataContext>(cfg =>
             {
@@ -72,11 +80,11 @@ namespace MyVet.Web
             services.AddScoped<ICombosHelper, CombosHelper>();
             services.AddScoped<IConverterHelper, ConverterHelper>();
             services.AddScoped<IImageHelper, ImageHelper>();
+            services.AddScoped<IMailHelper, MailHelper>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
@@ -89,6 +97,7 @@ namespace MyVet.Web
                 app.UseHsts();
             }
 
+            app.UseStatusCodePagesWithReExecute("/error/{0}");
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseAuthentication();
