@@ -116,7 +116,6 @@ namespace MyVet.Web.Controllers
             return View(serviceType);
         }
 
-        // GET: ServiceTypes/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -131,15 +130,6 @@ namespace MyVet.Web.Controllers
                 return NotFound();
             }
 
-            return View(serviceType);
-        }
-
-        // POST: ServiceTypes/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var serviceType = await _context.ServiceTypes.FindAsync(id);
             _context.ServiceTypes.Remove(serviceType);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
