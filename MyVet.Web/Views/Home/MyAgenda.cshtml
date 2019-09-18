@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MyVet.Web.Data.Entities.Agenda>
+﻿@model IEnumerable<MyVet.Web.Models.AgendaViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -6,10 +6,6 @@
 
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
 <br />
-
-<p>
-    <a asp-action="AddDays" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i> Add Days</a>
-</p>
 
 <div class="row">
     <div class="col-md-12">
@@ -47,13 +43,26 @@
                                     @Html.DisplayFor(modelItem => item.DateLocal)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Owner.User.FullName)
+                                    @if (item.IsMine)
+                                    {
+                                        @Html.DisplayFor(modelItem => item.Owner.User.FullName)
+                                    }
+                                    else if (!item.IsAvailable)
+                                    {
+                                        @Html.DisplayFor(modelItem => item.Reserved)
+                                    }
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Pet.Name)
+                                    @if (item.IsMine)
+                                    {
+                                        @Html.DisplayFor(modelItem => item.Pet.Name)
+                                    }
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Remarks)
+                                    @if (item.IsMine)
+                                    {
+                                        @Html.DisplayFor(modelItem => item.Remarks)
+                                    }
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.IsAvailable)
@@ -65,7 +74,10 @@
                                     }
                                     else
                                     {
-                                        <button data-id="@item.Id" class="btn btn-danger deleteItem" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-minus"></i></button>
+                                        @if (item.IsMine)
+                                        {
+                                            <button data-id="@item.Id" class="btn btn-danger deleteItem" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-minus"></i></button>
+                                        }
                                     }
                                 </td>
                             </tr>
@@ -77,7 +89,7 @@
     </div>
 </div>
 
-<!--U-assign agenda-->
+<!-- Un-assign agenda-->
 <div class="modal fade" id="deleteDialog" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -114,7 +126,7 @@
             });
 
             $("#btnYesDelete").click(function () {
-                window.location.href = '/Agenda/Unassign/' + item_to_delete;
+                window.location.href = '/Home/Unassign/' + item_to_delete;
             });
         });
     </script>

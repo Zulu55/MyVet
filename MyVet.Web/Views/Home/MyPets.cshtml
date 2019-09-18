@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MyVet.Web.Data.Entities.Agenda>
+﻿@model IEnumerable<MyVet.Web.Data.Entities.Pet>
 
 @{
     ViewData["Title"] = "Index";
@@ -8,33 +8,36 @@
 <br />
 
 <p>
-    <a asp-action="AddDays" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i> Add Days</a>
+    <a asp-action="Create" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i> Create New</a>
 </p>
 
 <div class="row">
     <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">Agenda</h3>
+                <h3 class="panel-title">Pets</h3>
             </div>
             <div class="panel-body">
                 <table class="table table-hover table-responsive table-striped" id="MyTable">
                     <thead>
                         <tr>
                             <th>
-                                @Html.DisplayNameFor(model => model.Date)
+                                @Html.DisplayNameFor(model => model.Name)
                             </th>
                             <th>
-                                Owner
+                                @Html.DisplayNameFor(model => model.PetType.Name)
                             </th>
                             <th>
-                                Pet
+                                @Html.DisplayNameFor(model => model.ImageUrl)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.Remarks)
+                                @Html.DisplayNameFor(model => model.Race)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.IsAvailable)
+                                @Html.DisplayNameFor(model => model.Born)
+                            </th>
+                            <th>
+                                Histories
                             </th>
                             <th></th>
                         </tr>
@@ -44,29 +47,30 @@
                         {
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.DateLocal)
+                                    @Html.DisplayFor(modelItem => item.Name)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Owner.User.FullName)
+                                    @Html.DisplayFor(modelItem => item.PetType.Name)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Pet.Name)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Remarks)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.IsAvailable)
-                                </td>
-                                <td>
-                                    @if (item.IsAvailable)
+                                    @if (!string.IsNullOrEmpty(item.ImageUrl))
                                     {
-                                        <a asp-action="Assing" class="btn btn-default" asp-route-id="@item.Id"><i class="glyphicon glyphicon-plus"></i></a>
+                                        <img src="@Url.Content(item.ImageUrl)" alt="Image" style="width:150px;height:150px;max-width: 100%; height: auto;" />
                                     }
-                                    else
-                                    {
-                                        <button data-id="@item.Id" class="btn btn-danger deleteItem" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-minus"></i></button>
-                                    }
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Race)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Born)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Histories.Count)
+                                </td>
+                                <td>
+                                    <a asp-action="Edit" class="btn btn-default" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i> </a>
+                                    <a asp-action="Details" class="btn btn-default" asp-route-id="@item.Id"><i class="glyphicon glyphicon-list"> </i> </a>
+                                    <button data-id="@item.Id" class="btn btn-danger deleteItem" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
                                 </td>
                             </tr>
                         }
@@ -77,22 +81,22 @@
     </div>
 </div>
 
-<!--U-assign agenda-->
+<!--Delete Item-->
 <div class="modal fade" id="deleteDialog" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Un-assign Agenda</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Delete Item</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <p>Are you sure to un-assign this appoiment?</p>
+                <p>Do you want to delete the record?</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-danger" id="btnYesDelete">Un-Assign</button>
+                <button type="button" class="btn btn-danger" id="btnYesDelete">Delete</button>
             </div>
         </div>
     </div>
@@ -114,7 +118,7 @@
             });
 
             $("#btnYesDelete").click(function () {
-                window.location.href = '/Agenda/Unassign/' + item_to_delete;
+                window.location.href = '/Home/Delete/' + item_to_delete;
             });
         });
     </script>
