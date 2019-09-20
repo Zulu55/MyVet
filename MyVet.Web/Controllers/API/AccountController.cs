@@ -1,5 +1,7 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MyVet.Common.Models;
@@ -87,5 +89,114 @@ namespace MyVet.Web.Controllers.API
                 Message = "A Confirmation email was sent. Please confirm your account and log into the App."
             });
         }
+
+        [HttpPost]
+        [Route("RecoverPassword")]
+        public async Task<IActionResult> RecoverPassword([FromBody] EmailRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new Response<object>
+                {
+                    IsSuccess = false,
+                    Message = "Bad request"
+                });
+            }
+
+            var user = await _userHelper.GetUserByEmailAsync(request.Email);
+            if (user == null)
+            {
+                return BadRequest(new Response<object>
+                {
+                    IsSuccess = false,
+                    Message = "This email is not assigned to any user."
+                });
+            }
+
+            var myToken = await _userHelper.GeneratePasswordResetTokenAsync(user);
+            var link = Url.Action("ResetPassword", "Account", new { token = myToken }, protocol: HttpContext.Request.Scheme);
+            _mailHelper.SendMail(request.Email, "Password Reset", $"<h1>Recover Password</h1>" +
+                $"To reset the password click in this link:</br></br>" +
+                $"<a href = \"{link}\">Reset Password</a>");
+
+            return Ok(new Response<object>
+            {
+                IsSuccess = true,
+                Message = "An email with instructions to change the password was sent."
+            });
+        }
+
+        [HttpPut]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<IActionResult> PutUser([FromBody] UserRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var userEntity = await _userHelper.GetUserByEmailAsync(request.Email);
+            if (userEntity == null)
+            {
+                return BadRequest("User not found.");
+            }
+
+            userEntity.FirstName = request.FirstName;
+            userEntity.LastName = request.LastName;
+            userEntity.Address = request.Address;
+            userEntity.PhoneNumber = request.Phone;
+            userEntity.Document = request.Phone;
+
+            var respose = await _userHelper.UpdateUserAsync(userEntity);
+            if (!respose.Succeeded)
+            {
+                return BadRequest(respose.Errors.FirstOrDefault().Description);
+            }
+
+            var updatedUser = await _userHelper.GetUserByEmailAsync(request.Email);
+            return Ok(updatedUser);
+        }
+
+        [HttpPost]
+        [Route("ChangePassword")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new Response<object>
+                {
+                    IsSuccess = false,
+                    Message = "Bad request"
+                });
+            }
+
+            var user = await _userHelper.GetUserByEmailAsync(request.Email);
+            if (user == null)
+            {
+                return BadRequest(new Response<object>
+                {
+                    IsSuccess = false,
+                    Message = "This email is not assigned to any user."
+                });
+            }
+
+            var result = await _userHelper.ChangePasswordAsync(user, request.OldPassword, request.NewPassword);
+            if (!result.Succeeded)
+            {
+                return BadRequest(new Response<object>
+                {
+                    IsSuccess = false,
+                    Message = result.Errors.FirstOrDefault().Description
+                });
+            }
+
+            return Ok(new Response<object>
+            {
+                IsSuccess = true,
+                Message = "The password was changed successfully!"
+            });
+        }
+
     }
 }

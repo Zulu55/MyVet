@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -22,7 +23,7 @@ namespace MyVet.Web.Controllers.API
         [HttpGet]
         public IEnumerable<PetType> GetPetTypes()
         {
-            return _context.PetTypes;
+            return _context.PetTypes.OrderBy(pt => pt.Name);
         }
     }
 }
