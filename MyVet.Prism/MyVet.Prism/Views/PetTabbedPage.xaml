@@ -5,6 +5,7 @@
             xmlns:local="clr-namespace:MyVet.Prism.Views"
             prism:ViewModelLocator.AutowireViewModel="True"
             x:Class="MyVet.Prism.Views.PetTabbedPage"
+            BackgroundColor="{StaticResource colorBackgroud}"
             Title="{Binding Title}">
 
     <TabbedPage.Children>
