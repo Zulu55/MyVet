@@ -26,5 +26,11 @@ namespace MyVet.Common.Services
             string servicePrefix,
             string controller,
             UserRequest userRequest);
+        
+        Task<Response<object>> RecoverPasswordAsync(
+            string urlBase,
+            string servicePrefix,
+            string controller,
+            EmailRequest emailRequest);
     }
 }
