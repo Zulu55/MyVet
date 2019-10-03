@@ -221,19 +221,34 @@
     <BundleResource Include="Resources\logo.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\ic_exit_to_app.png" />
+    <AndroidResource Include="Resources\ic_exit_to_app.png">
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\ic_list_alt.png" />
+    <AndroidResource Include="Resources\ic_list_alt.png">
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\ic_map.png" />
+    <AndroidResource Include="Resources\ic_map.png">
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\ic_person.png" />
+    <AndroidResource Include="Resources\ic_person.png">
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\ic_pets_menu.png" />
+    <AndroidResource Include="Resources\ic_pets_menu.png">
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
