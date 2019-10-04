@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:busyindicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="MyVet.Prism.Views.EditPet"
+             BackgroundColor="{StaticResource colorBackgroud}"
+             Title="{Binding Title}">
+
+    <ScrollView>
+        <AbsoluteLayout>
+            <StackLayout
+                AbsoluteLayout.LayoutBounds="0,0,1,1"
+                AbsoluteLayout.LayoutFlags="All"
+        	    Padding="10">
+
+                <Image
+            	    HeightRequest="150"
+            	    Source="{Binding ImageSource}">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ChangeImageCommand}"/>
+                    </Image.GestureRecognizers>
+                </Image>
+
+                <Label
+            	    FontSize="Micro"
+            	    HorizontalOptions="Center"
+            	    Text="Tap on image to change it."/>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Label
+                	    Grid.Column="0"
+                	    Grid.Row="0"
+                	    Text="Name"
+                	    VerticalOptions="Center"/>
+                    <Entry
+                	    Grid.Column="1"
+                	    Grid.Row="0"
+                	    Placeholder="Enter the pet's name..."
+                	    Text="{Binding Pet.Name}"/>
+
+                    <Label
+                	    Grid.Column="0"
+                	    Grid.Row="1"
+                	    Text="Race"
+                	    VerticalOptions="Center"/>
+                    <Entry
+                	    Grid.Column="1"
+                	    Grid.Row="1"
+                	    Placeholder="Enter the pet's race..."
+                	    Text="{Binding Pet.Race}"/>
+
+                    <Label
+                	    Grid.Column="0"
+                	    Grid.Row="2"
+                	    Text="Pet type"
+                	    VerticalOptions="Center"/>
+                    <Picker
+                	    Grid.Column="1"
+                	    Grid.Row="2"
+                	    ItemDisplayBinding="{Binding Name}"
+                	    ItemsSource="{Binding PetTypes}"
+                	    SelectedItem="{Binding PetType}"
+                	    Title="Select a pet type..."/>
+
+                    <Label
+                	    Grid.Column="0"
+                	    Grid.Row="3"
+                	    Text="Born"
+                	    VerticalOptions="Center"/>
+                    <DatePicker
+                	    Grid.Column="1"
+                	    Grid.Row="3"
+                	    Date="{Binding Pet.Born}"/>
+
+                    <Label
+                	    Grid.Column="0"
+                	    Grid.Row="4"
+                	    Text="Remarks"
+                	    VerticalOptions="Center"/>
+                    <Editor
+                	    Grid.Column="1"
+                	    Grid.Row="4"
+                	    HeightRequest="80"
+                	    Text="{Binding Pet.Remarks}"/>
+                </Grid>
+
+                <StackLayout
+            	    Orientation="Horizontal"
+                    VerticalOptions="EndAndExpand">
+
+                    <Button
+                	    Command="{Binding SaveCommand}"
+                	    IsEnabled="{Binding IsEnabled}"
+                	    Text="Save"/>
+
+                    <Button
+                	    Command="{Binding DeleteCommand}"
+                	    IsEnabled="{Binding IsEnabled}"
+                	    IsVisible="{Binding IsEdit}"
+                	    Style="{StaticResource dangerButton}"
+                	    Text="Delete"/>
+                </StackLayout>
+            </StackLayout>
+
+            <busyindicator:SfBusyIndicator  
+                AnimationType="Gear"
+                AbsoluteLayout.LayoutBounds=".5,.5,.5,.5"
+                AbsoluteLayout.LayoutFlags="All"
+                BackgroundColor="{StaticResource colorDanger}"
+                HorizontalOptions="Center"
+                TextColor="{StaticResource colorFontInverse}"
+                IsVisible="{Binding IsRunning}"
+                Title="Saving..."
+                VerticalOptions="Center"
+                ViewBoxWidth="80"
+                ViewBoxHeight="80" />
+            
+        </AbsoluteLayout>
+    </ScrollView>
+
+</ContentPage>
