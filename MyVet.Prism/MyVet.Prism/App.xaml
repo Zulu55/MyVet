@@ -30,6 +30,11 @@
                 <Setter Property="BackgroundColor" Value="{StaticResource colorSecondary}" />
             </Style>
 
+            <Style x:Key="dangerButton" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource colorDanger}" />
+                <Setter Property="TextColor" Value="{StaticResource colorFontInverse}" />
+            </Style>
+
             <Style TargetType="Label">
                 <Setter Property="TextColor" Value="{StaticResource colorFont}" />
             </Style>

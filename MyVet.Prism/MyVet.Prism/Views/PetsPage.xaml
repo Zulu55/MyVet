@@ -7,7 +7,11 @@
              x:Class="MyVet.Prism.Views.PetsPage"
              BackgroundColor="{StaticResource colorBackgroud}"
              Title="{Binding Title}">
-
+    
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Icon="ic_action_add_circle" Command="{Binding AddPetCommand}"/>
+    </ContentPage.ToolbarItems>
+    
     <StackLayout
         Padding="10">
         <ListView
