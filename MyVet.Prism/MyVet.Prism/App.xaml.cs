@@ -21,7 +21,7 @@ namespace MyVet.Prism
 
         protected override async void OnInitialized()
         {
-            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MTM3Njg0QDMxMzcyZTMyMmUzMGUvQlg3Tnk5ODRGQ01pbzNnWmEyWHdWcExaaUVOQ0FKODZGNDFpekRtd2M9");
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MTUzNjE2QDMxMzcyZTMyMmUzMFJQTXFRSnN6RXpKbzVkRktkTXpoK2R6YlNWWWlJeE9LUVE4ZGQyam1KMDQ9"); 
             InitializeComponent();
 
             var token = JsonConvert.DeserializeObject<TokenResponse>(Settings.Token);
