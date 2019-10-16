@@ -40,6 +40,12 @@
                                 @Html.DisplayNameFor(model => model.User.PhoneNumber)
                             </th>
                             <th>
+                                @Html.DisplayNameFor(model => model.User.Latitude)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.User.Longitude)
+                            </th>
+                            <th>
                                 # Pets
                             </th>
                             <th></th>
@@ -48,34 +54,40 @@
                     <tbody>
                         @foreach (var item in Model)
                         {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.User.Document)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.User.FirstName)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.User.LastName)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.User.Email)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.User.Address)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.User.PhoneNumber)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Pets.Count)
-                                </td>
-                                <td>
-                                    <a asp-action="Edit" class="btn btn-default" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i> </a>
-                                    <a asp-action="Details" class="btn btn-default" asp-route-id="@item.Id"><i class="glyphicon glyphicon-list"> </i> </a>
-                                    <button data-id="@item.Id" class="btn btn-danger deleteItem" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
-                                </td>
-                            </tr>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.User.Document)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.User.FirstName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.User.LastName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.User.Email)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.User.Address)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.User.PhoneNumber)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.User.Latitude)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.User.Longitude)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Pets.Count)
+                            </td>
+                            <td>
+                                <a asp-action="Edit" class="btn btn-default" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i> </a>
+                                <a asp-action="Details" class="btn btn-default" asp-route-id="@item.Id"><i class="glyphicon glyphicon-list"> </i> </a>
+                                <button data-id="@item.Id" class="btn btn-danger deleteItem" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
+                            </td>
+                        </tr>
                         }
                     </tbody>
                 </table>

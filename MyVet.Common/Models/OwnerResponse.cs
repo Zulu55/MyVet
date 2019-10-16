@@ -6,6 +6,10 @@ namespace MyVet.Common.Models
     {
         public int Id { get; set; }
 
+        public double Latitude { get; set; }
+
+        public double Longitude { get; set; }
+
         public string FirstName { get; set; }
 
         public string LastName { get; set; }

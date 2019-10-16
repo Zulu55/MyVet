@@ -2,9 +2,17 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+         	 xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"    
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="MyVet.Prism.Views.MapPage"
              BackgroundColor="{StaticResource colorBackgroud}"
              Title="{Binding Title}">
-  
+
+    <StackLayout>
+        <maps:Map
+        	x:Name="MyMap"
+            IsShowingUser="True"
+        	MapType="Street"/>
+    </StackLayout>
+
 </ContentPage>
