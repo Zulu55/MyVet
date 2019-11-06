@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:i18n="clr-namespace:MyVet.Prism.Helpers"
              xmlns:busyindicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="MyVet.Prism.Views.LoginPage"
@@ -19,29 +20,29 @@
                     HeightRequest="180"
                     Source="logo"/>
                 <Label
-                    Text="Email"/>
+                    Text="{i18n:Translate Email}"/>
                 <Entry
                     Keyboard="Email"
-                    Placeholder="Enter your email..."
+                    Placeholder="{i18n:Translate EmailPlaceHolder}"
                     Text="{Binding Email}"/>
                 <Label
-                    Text="Password"/>
+                    Text="{i18n:Translate Password}"/>
                 <Entry
                     IsPassword="True"
-                    Placeholder="Enter your password..."
+                    Placeholder="{i18n:Translate PasswordPlaceHolder}"
                     Text="{Binding Password}"/>
                 <StackLayout
                     HorizontalOptions="Center"
                     Orientation="Horizontal">
                     <Label
-                        Text="Remember me in this device"
+                        Text="{i18n:Translate Rememberme}"
                         VerticalOptions="Center"/>
                     <CheckBox
                         IsChecked="{Binding IsRemember}"/>
                 </StackLayout>
                 <Label
                     HorizontalOptions="Center"
-                    Text="Forgot your password?"
+                    Text="{i18n:Translate Forgot}"
                     TextColor="{StaticResource colorAccent}">
                     <Label.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding ForgotPasswordCommand}"/>
@@ -54,12 +55,12 @@
                     <Button
                         IsEnabled="{Binding IsEnabled}"
                         Command="{Binding LoginCommand}"
-                        Text="Login"/>
+                        Text="{i18n:Translate Login}"/>
                     <Button
                         IsEnabled="{Binding IsEnabled}"
                         Command="{Binding RegisterCommand}"
                         Style="{StaticResource secondaryButton}"
-                        Text="Register"/>
+                        Text="{i18n:Translate Register}"/>
                 </StackLayout>
             </StackLayout>
             <busyindicator:SfBusyIndicator  
@@ -70,7 +71,7 @@
                 HorizontalOptions="Center"
                 TextColor="{StaticResource colorFontInverse}"
                 IsVisible="{Binding IsRunning}"
-                Title="Loading..."
+                Title="{i18n:Translate Loading}"
                 VerticalOptions="Center"
                 ViewBoxWidth="80"
                 ViewBoxHeight="80" />

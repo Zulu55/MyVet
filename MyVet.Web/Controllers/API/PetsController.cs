@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MyVet.Common.Helpers;
 using MyVet.Common.Models;
 using MyVet.Web.Data;
@@ -131,6 +132,32 @@ namespace MyVet.Web.Controllers.API
             _dataContext.Pets.Update(oldPet);
             await _dataContext.SaveChangesAsync();
             return Ok(_converterHelper.ToPetResponse(oldPet));
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeletePet([FromRoute] int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return this.BadRequest(ModelState);
+            }
+
+            var pet = await _dataContext.Pets
+                .Include(p => p.Histories)
+                .FirstOrDefaultAsync(p => p.Id == id);
+            if (pet == null)
+            {
+                return this.NotFound();
+            }
+
+            if (pet.Histories.Count > 0)
+            {
+                BadRequest("The pet can't be deleted because it has history.");
+            }
+
+            _dataContext.Pets.Remove(pet);
+            await _dataContext.SaveChangesAsync();
+            return Ok("Pet deleted");
         }
     }
 }

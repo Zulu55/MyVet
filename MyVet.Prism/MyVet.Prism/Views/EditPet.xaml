@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+         	 xmlns:i18n="clr-namespace:MyVet.Prism.Helpers"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              xmlns:busyindicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
              prism:ViewModelLocator.AutowireViewModel="True"
@@ -34,7 +35,11 @@
                     <Label
             	        FontSize="Micro"
             	        HorizontalOptions="Center"
-            	        Text="Tap on image to change it."/>
+            	        Text="{i18n:Translate ChangeImage}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ChangeImageCommand}"/>
+                        </Label.GestureRecognizers>
+                    </Label>
 
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -52,29 +57,29 @@
                         <Label
                 	        Grid.Column="0"
                 	        Grid.Row="0"
-                	        Text="Name"
+                	        Text="{i18n:Translate Name}"
                 	        VerticalOptions="Center"/>
                         <Entry
                 	        Grid.Column="1"
                 	        Grid.Row="0"
-                	        Placeholder="Enter the pet's name..."
+                	        Placeholder="{i18n:Translate NamePlaceHolder}"
                 	        Text="{Binding Pet.Name}"/>
 
                         <Label
                 	        Grid.Column="0"
                 	        Grid.Row="1"
-                	        Text="Race"
+                	        Text="{i18n:Translate Race}"
                 	        VerticalOptions="Center"/>
                         <Entry
                 	        Grid.Column="1"
                 	        Grid.Row="1"
-                	        Placeholder="Enter the pet's race..."
+                	        Placeholder="{i18n:Translate RacePlaceHolder}"
                 	        Text="{Binding Pet.Race}"/>
 
                         <Label
                 	        Grid.Column="0"
                 	        Grid.Row="2"
-                	        Text="Pet type"
+                	        Text="{i18n:Translate PetType}"
                 	        VerticalOptions="Center"/>
                         <Picker
                 	        Grid.Column="1"
@@ -82,12 +87,12 @@
                 	        ItemDisplayBinding="{Binding Name}"
                 	        ItemsSource="{Binding PetTypes}"
                 	        SelectedItem="{Binding PetType}"
-                	        Title="Select a pet type..."/>
+                	        Title="{i18n:Translate PetTypePlaceHolder}"/>
 
                         <Label
                 	        Grid.Column="0"
                 	        Grid.Row="3"
-                	        Text="Born"
+                	        Text="{i18n:Translate Born}"
                 	        VerticalOptions="Center"/>
                         <DatePicker
                 	        Grid.Column="1"
@@ -97,7 +102,7 @@
                         <Label
                 	        Grid.Column="0"
                 	        Grid.Row="4"
-                	        Text="Remarks"
+                	        Text="{i18n:Translate Remarks}"
                 	        VerticalOptions="Center"/>
                         <Editor
                 	        Grid.Column="1"
@@ -116,7 +121,7 @@
                     HorizontalOptions="Center"
                     TextColor="{StaticResource colorFontInverse}"
                     IsVisible="{Binding IsRunning}"
-                    Title="Saving..."
+                    Title="{i18n:Translate Saving}"
                     VerticalOptions="Center"
                     ViewBoxWidth="80"
                     ViewBoxHeight="80" />
@@ -130,14 +135,14 @@
             <Button
                 Command="{Binding SaveCommand}"
                 IsEnabled="{Binding IsEnabled}"
-                Text="Save"/>
+                Text="{i18n:Translate Save}"/>
 
             <Button
                 Command="{Binding DeleteCommand}"
                 IsEnabled="{Binding IsEnabled}"
                 IsVisible="{Binding IsEdit}"
                 Style="{StaticResource dangerButton}"
-                Text="Delete"/>
+                Text="{i18n:Translate Delete}"/>
         </StackLayout>
     </StackLayout>
 

@@ -2,6 +2,7 @@
 using MyVet.Common.Helpers;
 using MyVet.Common.Models;
 using MyVet.Common.Services;
+using MyVet.Prism.Helpers;
 using Newtonsoft.Json;
 using Prism.Commands;
 using Prism.Navigation;
@@ -26,7 +27,7 @@ namespace MyVet.Prism.ViewModels
             _navigationService = navigationService;
             _apiService = apiService;
 
-            Title = "Login";
+            Title = Languages.Login;
             IsEnabled = true;
             IsRemember = true;
         }
@@ -63,13 +64,19 @@ namespace MyVet.Prism.ViewModels
         {
             if (string.IsNullOrEmpty(Email))
             {
-                await App.Current.MainPage.DisplayAlert("Error", "You must enter an email.", "Accept");
+                await App.Current.MainPage.DisplayAlert(
+                    Languages.Error,
+                    Languages.EmailError,
+                    Languages.Accept);
                 return;
             }
 
             if (string.IsNullOrEmpty(Password))
             {
-                await App.Current.MainPage.DisplayAlert("Error", "You must enter a password.", "Accept");
+                await App.Current.MainPage.DisplayAlert(
+                    Languages.Error,
+                    Languages.PasswordError,
+                    Languages.Accept);
                 return;
             }
 
@@ -98,7 +105,10 @@ namespace MyVet.Prism.ViewModels
             {
                 IsRunning = false;
                 IsEnabled = true;
-                await App.Current.MainPage.DisplayAlert("Error", "Email or password incorrect.", "Accept");
+                await App.Current.MainPage.DisplayAlert(
+                    Languages.Error,
+                    Languages.LoginError,
+                    Languages.Accept);
                 Password = string.Empty;
                 return;
             }
