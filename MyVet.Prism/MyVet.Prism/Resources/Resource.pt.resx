@@ -156,4 +156,79 @@
   <data name="Loading" xml:space="preserve">
     <value>Carregando</value>
   </data>
+  <data name="LoginError" xml:space="preserve">
+    <value>E-mail ou senha incorretos.</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Excluir</value>
+  </data>
+  <data name="EditPet" xml:space="preserve">
+    <value>Editar Pet</value>
+  </data>
+  <data name="ChangeImage" xml:space="preserve">
+    <value>Toque na imagem para alterar.</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Nome:</value>
+  </data>
+  <data name="NameError" xml:space="preserve">
+    <value>Você deve inserir o nome do animal.</value>
+  </data>
+  <data name="NamePlaceHolder" xml:space="preserve">
+    <value>Digite o nome do animal de estimação ...!</value>
+  </data>
+  <data name="Race" xml:space="preserve">
+    <value>Raça</value>
+  </data>
+  <data name="RaceError" xml:space="preserve">
+    <value>Você deve inserir a raça do animal de estimação.!</value>
+  </data>
+  <data name="RacePlaceHolder" xml:space="preserve">
+    <value>Digite a raça do animal de estimação ...!</value>
+  </data>
+  <data name="PetType" xml:space="preserve">
+    <value>Tipo de animal</value>
+  </data>
+  <data name="PetTypeError" xml:space="preserve">
+    <value>Você deve selecionar um tipo de quarto ou apartamento</value>
+  </data>
+  <data name="PetTypePlaceHolder" xml:space="preserve">
+    <value>Selecione o tipo de animal de estimação ...!</value>
+  </data>
+  <data name="Born" xml:space="preserve">
+    <value>O animal de estimação nasceu!</value>
+  </data>
+  <data name="Remarks" xml:space="preserve">
+    <value>Comentários:</value>
+  </data>
+  <data name="Ok" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Salvar</value>
+  </data>
+  <data name="Saving" xml:space="preserve">
+    <value>Salvando...</value>
+  </data>
+  <data name="Created" xml:space="preserve">
+    <value>Criado</value>
+  </data>
+  <data name="Edited" xml:space="preserve">
+    <value>editado</value>
+  </data>
+  <data name="CreateEditPetConfirm" xml:space="preserve">
+    <value>O animal de estimação foi {0} com sucesso.!</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Confirmar</value>
+  </data>
+  <data name="QuestionToDeletePet" xml:space="preserve">
+    <value>Tem a certeza de que pretende eliminar este utilizador?;</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Sim</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>&amp;Não</value>
+  </data>
 </root>

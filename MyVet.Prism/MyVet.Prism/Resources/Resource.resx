@@ -159,4 +159,76 @@
   <data name="LoginError" xml:space="preserve">
     <value>Email or password incorrect.</value>
   </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="EditPet" xml:space="preserve">
+    <value>Edit Pet</value>
+  </data>
+  <data name="ChangeImage" xml:space="preserve">
+    <value>Tap on image to change it.</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="NameError" xml:space="preserve">
+    <value>You must enter the pet's name.</value>
+  </data>
+  <data name="NamePlaceHolder" xml:space="preserve">
+    <value>Enter the pet's name...</value>
+  </data>
+  <data name="Race" xml:space="preserve">
+    <value>Breed</value>
+  </data>
+  <data name="RaceError" xml:space="preserve">
+    <value>You must enter the pet's breed.</value>
+  </data>
+  <data name="RacePlaceHolder" xml:space="preserve">
+    <value>Enter the pet's breed...</value>
+  </data>
+  <data name="PetType" xml:space="preserve">
+    <value>Pet Type</value>
+  </data>
+  <data name="PetTypeError" xml:space="preserve">
+    <value>You must select a pet type.</value>
+  </data>
+  <data name="PetTypePlaceHolder" xml:space="preserve">
+    <value>Select the pet type...</value>
+  </data>
+  <data name="Born" xml:space="preserve">
+    <value>Pet's born</value>
+  </data>
+  <data name="Remarks" xml:space="preserve">
+    <value>Remarks</value>
+  </data>
+  <data name="Ok" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Saving" xml:space="preserve">
+    <value>Saving...</value>
+  </data>
+  <data name="Created" xml:space="preserve">
+    <value>Created </value>
+  </data>
+  <data name="Edited" xml:space="preserve">
+    <value>Edited</value>
+  </data>
+  <data name="CreateEditPetConfirm" xml:space="preserve">
+    <value>The pet was {0} sucessfully.</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Confirm</value>
+  </data>
+  <data name="QuestionToDeletePet" xml:space="preserve">
+    <value>Are you sure to delete the pet?</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
 </root>
