@@ -107,7 +107,7 @@
     <value>Erreur</value>
   </data>
   <data name="Login" xml:space="preserve">
-    <value>&amp;Connexion</value>
+    <value>Connexion</value>
   </data>
   <data name="Email" xml:space="preserve">
     <value>Courrier électronique</value>
@@ -131,7 +131,7 @@
     <value>Vous avez oublié votre mot de passe ?</value>
   </data>
   <data name="Register" xml:space="preserve">
-    <value>&amp;Inscrire dans la base de registres...</value>
+    <value>Inscrire</value>
   </data>
   <data name="Loading" xml:space="preserve">
     <value>Chargement</value>

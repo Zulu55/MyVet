@@ -1,9 +1,13 @@
 ﻿using MyVet.Common.Helpers;
 using MyVet.Common.Models;
 using MyVet.Common.Services;
+using MyVet.Prism.Helpers;
 using Prism.Commands;
 using Prism.Navigation;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using Xamarin.Forms.Maps;
 
 namespace MyVet.Prism.ViewModels
 {
@@ -11,17 +15,20 @@ namespace MyVet.Prism.ViewModels
     {
         private readonly INavigationService _navigationService;
         private readonly IApiService _apiService;
+        private readonly IGeolocatorService _geolocatorService;
         private bool _isRunning;
         private bool _isEnabled;
         private DelegateCommand _registerCommand;
+        private Position _position;
 
         public RegisterPageViewModel(
             INavigationService navigationService,
-            IApiService apiService) : base(navigationService)
+            IApiService apiService,
+            IGeolocatorService geolocatorService) : base(navigationService)
         {
             _navigationService = navigationService;
             _apiService = apiService;
-
+            _geolocatorService = geolocatorService;
             Title = "Register new user";
             IsEnabled = true;
         }
@@ -75,7 +82,9 @@ namespace MyVet.Prism.ViewModels
                 FirstName = FirstName,
                 LastName = LastName,
                 Password = Password,
-                Phone = Phone
+                Phone = Phone,
+                Latitude = _position.Latitude,
+                Longitude = _position.Longitude
             };
 
             var url = App.Current.Resources["UrlAPI"].ToString();
@@ -124,9 +133,9 @@ namespace MyVet.Prism.ViewModels
                 return false;
             }
 
-            if (string.IsNullOrEmpty(Address))
+            var isValidAddress = await ValidateAddressAsync();
+            if (!isValidAddress)
             {
-                await App.Current.MainPage.DisplayAlert("Error", "You must enter an address.", "Accept");
                 return false;
             }
 
@@ -158,6 +167,96 @@ namespace MyVet.Prism.ViewModels
             {
                 await App.Current.MainPage.DisplayAlert("Error", "The password and confirm does not match.", "Accept");
                 return false;
+            }
+
+            return true;
+        }
+
+        private async Task<bool> ValidateAddressAsync()
+        {
+            if (string.IsNullOrEmpty(Address))
+            {
+                await App.Current.MainPage.DisplayAlert(
+                    "Error", "You must enter a valid address.", "Accept");
+                return false;
+            }
+
+            var geoCoder = new Geocoder();
+            var locations = await geoCoder.GetPositionsForAddressAsync(Address);
+            var locationList = locations.ToList();
+            if (locationList.Count == 0)
+            {
+                var response = await App.Current.MainPage.DisplayAlert(
+                    Languages.Error,
+                    "Address not found, do you want to use your current location like your address.",
+                    Languages.Yes,
+                    Languages.No);
+                if (response)
+                {
+                    await _geolocatorService.GetLocationAsync();
+                    if (_geolocatorService.Latitude != 0 && _geolocatorService.Longitude != 0)
+                    {
+                        _position = new Position(
+                            _geolocatorService.Latitude,
+                            _geolocatorService.Longitude);
+
+                        var list = await geoCoder.GetAddressesForPositionAsync(_position);
+                        Address = list.FirstOrDefault();
+                        return true;
+                    }
+                    else
+                    {
+                        await App.Current.MainPage.DisplayAlert(
+                            Languages.Error,
+                            "Not Location Available",
+                            Languages.Accept);
+                        return false;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+            if (locationList.Count == 1)
+            {
+                _position = locationList.FirstOrDefault();
+                return true;
+            }
+
+            if (locationList.Count > 1)
+            {
+                var addresses = new List<Address>();
+                var names = new List<string>();
+                foreach (var location in locationList)
+                {
+                    var list = await geoCoder.GetAddressesForPositionAsync(location);
+                    names.AddRange(list);
+                    foreach (var item in list)
+                    {
+                        addresses.Add(new Address
+                        {
+                            Name = item,
+                            Latitude = location.Latitude,
+                            Longitude = location.Longitude
+                        });
+                    }
+                }
+
+                var source = await App.Current.MainPage.DisplayActionSheet(
+                    "Select An Adrress...",
+                    "Cancel",
+                    null,
+                    names.ToArray());
+                if (source == "Cancel")
+                {
+                    return false;
+                }
+
+                Address = source;
+                var address = addresses.FirstOrDefault(a => a.Name == source);
+                _position = new Position(address.Latitude, address.Longitude);
             }
 
             return true;

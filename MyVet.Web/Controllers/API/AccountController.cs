@@ -58,7 +58,9 @@ namespace MyVet.Web.Controllers.API
                 FirstName = request.FirstName,
                 LastName = request.LastName,
                 PhoneNumber = request.Phone,
-                UserName = request.Email
+                UserName = request.Email,
+                Latitude = request.Latitude,
+                Longitude = request.Longitude
             };
 
             var result = await _userHelper.AddUserAsync(user, request.Password);
