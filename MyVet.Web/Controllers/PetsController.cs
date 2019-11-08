@@ -28,11 +28,21 @@ namespace MyVet.Web.Controllers
 
         public IActionResult Index()
         {
-            return new ViewAsPdf(_dataContext.Pets
+            return View(_dataContext.Pets
                 .Include(p => p.Owner)
                 .ThenInclude(o => o.User)
                 .Include(p => p.PetType)
                 .Include(p => p.Histories));
+        }
+
+        public IActionResult Print()
+        {
+            return new ViewAsPdf(_dataContext.Pets
+                .Include(p => p.Owner)
+                .ThenInclude(o => o.User)
+                .Include(p => p.PetType)
+                .Include(p => p.Histories))
+                { FileName = "Pets.pdf" };
         }
 
         public async Task<IActionResult> Details(int? id)

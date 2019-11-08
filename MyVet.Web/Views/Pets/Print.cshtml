@@ -1,0 +1,40 @@
+﻿@model IEnumerable<MyVet.Web.Data.Entities.Pet>
+
+@{
+    Layout = null;
+}
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+      asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+      asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+
+<h2>Pets</h2>
+
+<div class="row" style="border: 1px solid #000;">
+    <div class="col-xs-3">
+        Name
+    </div>
+    <div class="col-xs-3">
+        Race
+    </div>
+    <div class="col-xs-3">
+        Born
+    </div>
+</div>
+
+<div>
+    @foreach (var item in Model)
+    {
+        <div class="row">
+            <div class="col-xs-3">
+                @item.Name
+            </div>
+            <div class="col-xs-3">
+                @item.Race
+            </div>
+            <div class="col-xs-3">
+                @item.Born
+            </div>
+        </div>
+    }
+</div>
